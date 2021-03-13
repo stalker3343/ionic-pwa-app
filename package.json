@@ -4,7 +4,7 @@
   "private": true,
   "description": "An Ionic project",
   "scripts": {
-    "serve": "vue-cli-service serve",
+    "serve": "ionic serve",
     "build": "vue-cli-service build",
     "test:unit": "vue-cli-service test:unit",
     "test:e2e": "vue-cli-service test:e2e",
@@ -13,9 +13,12 @@
   "dependencies": {
     "@capacitor/android": "^2.4.7",
     "@capacitor/core": "2.4.7",
+    "@ionic-native/barcode-scanner": "^5.31.1",
+    "@ionic-native/core": "^5.31.1",
     "@ionic/vue": "^5.4.0",
     "@ionic/vue-router": "^5.4.0",
     "core-js": "^3.6.5",
+    "phonegap-plugin-barcodescanner": "^8.1.0",
     "register-service-worker": "^1.7.1",
     "vue": "^3.0.0-0",
     "vue-router": "^4.0.0-0"
