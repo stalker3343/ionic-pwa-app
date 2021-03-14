@@ -7,11 +7,11 @@
     <ion-content :fullscreen="true">
       <ion-grid>
         <ion-row>
-          <ion-col size="6">
+          <ion-col size="6" class="d-flex">
             <ion-card
               router-link="/qr-scaner"
               button
-              class="ion-no-margin"
+              class="ion-no-margin app-card"
               color="dark"
             >
               <ion-card-header class="ion-text-center">
@@ -23,8 +23,8 @@
               </ion-card-header>
             </ion-card>
           </ion-col>
-          <ion-col size="6">
-            <ion-card class="ion-no-margin" color="dark">
+          <ion-col size="6" class="d-flex">
+            <ion-card class="ion-no-margin app-card" color="dark">
               <ion-card-header class="ion-text-center">
                 <ion-icon size="large" :icon="triangle" />
                 <div class="card-text">
@@ -33,8 +33,8 @@
               </ion-card-header>
             </ion-card>
           </ion-col>
-          <ion-col size="6">
-            <ion-card class="ion-no-margin" color="dark">
+          <ion-col size="6" class="d-flex">
+            <ion-card class="ion-no-margin app-card" color="dark">
               <ion-card-header class="ion-text-center">
                 <ion-icon size="large" :icon="triangle" />
                 <div class="card-text">
@@ -43,8 +43,8 @@
               </ion-card-header>
             </ion-card>
           </ion-col>
-          <ion-col size="6">
-            <ion-card class="ion-no-margin" color="dark">
+          <ion-col size="6" class="d-flex">
+            <ion-card class="ion-no-margin app-card" color="dark">
               <ion-card-header class="ion-text-center">
                 <ion-icon size="large" :icon="triangle" />
                 <div class="card-text">
@@ -67,6 +67,7 @@ import {
   IonIcon,
   IonPage,
   IonContent,
+  IonCardHeader,
 } from "@ionic/vue";
 import { menuOutline, triangle, personCircleOutline } from "ionicons/icons";
 
@@ -83,6 +84,7 @@ export default defineComponent({
     AppHeader,
     IonPage,
     IonContent,
+    IonCardHeader,
     // IonCardContent,
     // IonCardSubtitle,
     // IonCardTitle,
@@ -101,8 +103,14 @@ export default defineComponent({
 </script>
 
 <style scoped>
+.app-card {
+  width: 100%;
+}
 .card-text {
   font-size: 18px;
   padding-top: 8px;
+}
+.d-flex {
+  display: flex;
 }
 </style>

@@ -16,7 +16,14 @@
   </ion-header>
 </template>
 <script lang="ts">
-import { IonIcon, IonMenuButton } from "@ionic/vue";
+import {
+  IonIcon,
+  IonMenuButton,
+  IonButton,
+  IonTitle,
+  IonToolbar,
+  IonHeader,
+} from "@ionic/vue";
 import { menuOutline, triangle, personCircleOutline } from "ionicons/icons";
 
 import { defineComponent } from "vue";
@@ -28,6 +35,10 @@ export default defineComponent({
     // IonCardSubtitle,
     // IonCardTitle,
     IonIcon,
+    IonHeader,
+    IonButton,
+    IonToolbar,
+    IonTitle,
 
     IonMenuButton,
     // IonLabel,

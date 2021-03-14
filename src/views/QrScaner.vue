@@ -16,7 +16,7 @@
 import { IonButton, IonPage, IonContent } from "@ionic/vue";
 import { defineComponent, ref, onMounted } from "vue";
 import AppHeader from "@/components/AppHeader.vue";
-import { useBarCodeScaner } from "@/composables/useBarCodeScaner";
+// import { useBarCodeScaner } from "@/composables/useBarCodeScaner";
 import { BarcodeScanner } from "@ionic-native/barcode-scanner";
 
 export default defineComponent({
@@ -33,7 +33,7 @@ export default defineComponent({
     const qrLink = ref("");
     const scan = () => {
       // eslint-disable-next-line no-undef
-      cordova.plugins.barcodeScanner.scan(
+      BarcodeScanner.scan(
         function(result) {
           qrLink.value = result.text;
         },
