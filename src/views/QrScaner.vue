@@ -33,6 +33,18 @@
             </ion-button>
           </ion-col>
         </ion-row>
+        <ion-row>
+          <ion-col>
+            {{ isQrUrl }} вава
+            <ion-button
+              v-if="isQrUrl"
+              expand="block"
+              @click="writeLinkInBrowser"
+            >
+              Open in browser
+            </ion-button>
+          </ion-col>
+        </ion-row>
       </ion-grid>
     </ion-content>
   </ion-page>
@@ -53,6 +65,9 @@ import { defineComponent, onMounted, computed } from "vue";
 import AppHeader from "@/components/AppHeader.vue";
 import { useBarCodeScaner } from "@/composables/useBarCodeScaner";
 import { useClipboad } from "@/composables/useClipboad";
+import { useBrowser } from "@/composables/useBrowser";
+
+import { isValidURL } from "@/helpers";
 
 export default defineComponent({
   name: "HomePage",
@@ -71,8 +86,14 @@ export default defineComponent({
   setup() {
     const { scan, scanRes } = useBarCodeScaner();
     const { writeToClipboard } = useClipboad();
+    const { open: openInBrowser } = useBrowser();
+
     const qrLink = computed(() => {
       return scanRes.value ? scanRes.value.text : "";
+    });
+
+    const isQrUrl = computed(() => {
+      return isValidURL(qrLink.value);
     });
 
     onMounted(() => {
@@ -81,11 +102,16 @@ export default defineComponent({
     const writeLinkToClipboard = () => {
       writeToClipboard(qrLink.value);
     };
+    const writeLinkInBrowser = () => {
+      openInBrowser(qrLink.value);
+    };
 
     return {
       qrLink,
       scan,
       writeLinkToClipboard,
+      isQrUrl,
+      writeLinkInBrowser,
     };
   },
 });
