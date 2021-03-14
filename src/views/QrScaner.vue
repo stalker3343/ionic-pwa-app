@@ -35,7 +35,6 @@
         </ion-row>
         <ion-row>
           <ion-col>
-            {{ isQrUrl }} вава
             <ion-button
               v-if="isQrUrl"
               expand="block"
@@ -89,7 +88,7 @@ export default defineComponent({
     const { open: openInBrowser } = useBrowser();
 
     const qrLink = computed(() => {
-      return scanRes.value ? scanRes.value.text : "";
+      return scanRes.value ? scanRes.value.text : "asdfsdf";
     });
 
     const isQrUrl = computed(() => {
