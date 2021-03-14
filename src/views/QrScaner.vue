@@ -4,20 +4,55 @@
       Qr scaner
     </app-header>
     <ion-content>
-      <div>Result: {{ qrLink }}</div>
-      <ion-button @click="scan">
-        Scan
-      </ion-button>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-label>Result:</ion-label>
+
+            <ion-textarea
+              autoGrow
+              placeholder="Qr value"
+              readonly
+              v-model="qrLink"
+            ></ion-textarea>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-button expand="block" @click="scan">
+              Scan
+            </ion-button>
+          </ion-col>
+          <ion-col>
+            <ion-button
+              expand="block"
+              v-if="qrLink"
+              @click="writeLinkToClipboard"
+            >
+              Copy to Clipboard
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
     </ion-content>
   </ion-page>
 </template>
 
-<script lang="js">
-import { IonButton, IonPage, IonContent } from "@ionic/vue";
-import { defineComponent, ref, onMounted } from "vue";
+<script lang="ts">
+import {
+  IonButton,
+  IonPage,
+  IonContent,
+  IonCol,
+  IonGrid,
+  IonRow,
+  IonLabel,
+  IonTextarea,
+} from "@ionic/vue";
+import { defineComponent, onMounted, computed } from "vue";
 import AppHeader from "@/components/AppHeader.vue";
-// import { useBarCodeScaner } from "@/composables/useBarCodeScaner";
-import { BarcodeScanner } from "@ionic-native/barcode-scanner";
+import { useBarCodeScaner } from "@/composables/useBarCodeScaner";
+import { useClipboad } from "@/composables/useClipboad";
 
 export default defineComponent({
   name: "HomePage",
@@ -26,42 +61,31 @@ export default defineComponent({
     IonButton,
     IonPage,
     IonContent,
+
+    IonTextarea,
+    IonCol,
+    IonGrid,
+    IonRow,
+    IonLabel,
   },
   setup() {
-    // const { scan } = useBarCodeScaner();
+    const { scan, scanRes } = useBarCodeScaner();
+    const { writeToClipboard } = useClipboad();
+    const qrLink = computed(() => {
+      return scanRes.value ? scanRes.value.text : "";
+    });
 
-    const qrLink = ref("");
-    const scan = () => {
-      // eslint-disable-next-line no-undef
-      BarcodeScanner.scan(
-        function(result) {
-          qrLink.value = result.text;
-        },
-        function(error) {
-          alert("Scanning failed: " + error);
-        },
-        {
-          preferFrontCamera: false, // iOS and Android
-          showFlipCameraButton: true, // iOS and Android
-          showTorchButton: true, // iOS and Android
-          torchOn: true, // Android, launch with the torch switched on (if available)
-          saveHistory: true, // Android, save scan history (default false)
-          prompt: "Place a qrcode inside the scan area", // Android
-          resultDisplayDuration: 500, // Android, display scanned text for X ms. 0 suppresses it entirely, default 1500
-          formats: "QR_CODE,PDF_417", // default: all but PDF_417 and RSS_EXPANDED
-          orientation: "landscape", // Android only (portrait|landscape), default unset so it rotates with the device
-          disableAnimations: true, // iOS
-          disableSuccessBeep: false, // iOS and Android
-        }
-      );
-    };
     onMounted(() => {
       scan();
     });
+    const writeLinkToClipboard = () => {
+      writeToClipboard(qrLink.value);
+    };
 
     return {
       qrLink,
-      scan
+      scan,
+      writeLinkToClipboard,
     };
   },
 });

@@ -5,6 +5,7 @@
   "description": "An Ionic project",
   "scripts": {
     "serve": "ionic serve",
+    "android": "ionic capacitor run android",
     "build": "vue-cli-service build",
     "test:unit": "vue-cli-service test:unit",
     "test:e2e": "vue-cli-service test:e2e",
@@ -12,6 +13,7 @@
   },
   "dependencies": {
     "@capacitor/android": "^2.4.7",
+    "@capacitor/clipboard": "^0.4.6",
     "@capacitor/core": "2.4.7",
     "@ionic-native/barcode-scanner": "^5.31.1",
     "@ionic-native/core": "^5.31.1",
