@@ -15,7 +15,7 @@
     "@capacitor/android": "^3.0.0-rc.0",
     "@capacitor/browser": "^0.4.6",
     "@capacitor/clipboard": "^0.4.6",
-    "@capacitor/core": "2.4.7",
+    "@capacitor/core": "^3.0.0-rc.0",
     "@ionic-native/barcode-scanner": "^5.31.1",
     "@ionic-native/core": "^5.31.1",
     "@ionic/vue": "^5.4.0",
@@ -28,7 +28,7 @@
     "vue-router": "^4.0.0-0"
   },
   "devDependencies": {
-    "@capacitor/cli": "2.4.7",
+    "@capacitor/cli": "^3.0.0-rc.0",
     "@types/jest": "^24.0.19",
     "@typescript-eslint/eslint-plugin": "^2.33.0",
     "@typescript-eslint/parser": "^2.33.0",
