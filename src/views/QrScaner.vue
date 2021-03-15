@@ -88,7 +88,7 @@ export default defineComponent({
     const { open: openInBrowser } = useBrowser();
 
     const qrLink = computed(() => {
-      return scanRes.value ? scanRes.value.text : "asdfsdf";
+      return scanRes.value ? scanRes.value.text : "";
     });
 
     const isQrUrl = computed(() => {
