@@ -17,18 +17,18 @@
               <ion-card-header class="ion-text-center">
                 <ion-icon size="large" :icon="triangle" />
                 <div class="card-text">
-                  Qr code <br />
-                  scanner
+                  Qr code scanner
                 </div>
               </ion-card-header>
             </ion-card>
           </ion-col>
           <ion-col size="6" class="d-flex">
-            <ion-card class="ion-no-margin app-card" color="dark">
+            <ion-card  router-link="/local-notifications"
+              button class="ion-no-margin app-card" color="dark">
               <ion-card-header class="ion-text-center">
                 <ion-icon size="large" :icon="triangle" />
                 <div class="card-text">
-                  Produscto products
+                  Local notifications
                 </div>
               </ion-card-header>
             </ion-card>

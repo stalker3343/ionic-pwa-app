@@ -1,18 +1,23 @@
-import { createRouter, createWebHistory } from '@ionic/vue-router';
-import { RouteRecordRaw } from 'vue-router';
+import { createRouter, createWebHistory } from "@ionic/vue-router";
+import { RouteRecordRaw } from "vue-router";
 
 const routes: Array<RouteRecordRaw> = [
   {
-    path: '/',
-    name: 'home',
-    component: () => import('@/views/Home.vue')
+    path: "/",
+    name: "home",
+    component: () => import("@/views/Home.vue"),
   },
   {
     name: "qr-scaner",
-    path: '/qr-scaner',
-    component: () => import('@/views/QrScaner.vue')
+    path: "/qr-scaner",
+    component: () => import("@/views/QrScaner.vue"),
+  },
+  {
+    name: "local-notifications",
+    path: "/local-notifications",
+    component: () => import("@/views/LocalNotifications.vue"),
+  },
 
-  }
   // {
   //   path: '/tabs/',
   //   component: Tabs,
@@ -35,11 +40,11 @@ const routes: Array<RouteRecordRaw> = [
   //     }
   //   ]
   // }
-]
+];
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
-  routes
-})
+  routes,
+});
 
-export default router
+export default router;
