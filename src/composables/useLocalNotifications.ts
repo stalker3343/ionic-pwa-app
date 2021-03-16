@@ -9,7 +9,7 @@ const isNotifGranted = (status: PermissionStatus) =>
 export function useLocalNotifications() {
   const checkPermissions = async () => {
     let permStatus = await LocalNotifications.checkPermissions();
-    if (isNotifGranted(permStatus)) {
+    if (!isNotifGranted(permStatus)) {
       permStatus = await LocalNotifications.requestPermissions();
       if (!isNotifGranted(permStatus)) {
         alert("Please allow notifications");

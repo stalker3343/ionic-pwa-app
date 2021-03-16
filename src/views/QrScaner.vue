@@ -1,10 +1,11 @@
 <template>
   <ion-page>
-    <app-header>
+    <!-- <app-header>
       Qr scaner
-    </app-header>
+    </app-header> -->
     <ion-content>
-      <ion-grid>
+      <QrCodeScaner></QrCodeScaner>
+      <!-- <ion-grid>
         <ion-row>
           <ion-col>
             <ion-label>Result:</ion-label>
@@ -44,7 +45,7 @@
             </ion-button>
           </ion-col>
         </ion-row>
-      </ion-grid>
+      </ion-grid> -->
     </ion-content>
   </ion-page>
 </template>
@@ -62,6 +63,8 @@ import {
 } from "@ionic/vue";
 import { defineComponent, onMounted, computed } from "vue";
 import AppHeader from "@/components/AppHeader.vue";
+import QrCodeScaner from "@/components/QrCodeScaner.vue";
+
 import { useBarCodeScaner } from "@/composables/useBarCodeScaner";
 import { useClipboad } from "@/composables/useClipboad";
 import { useBrowser } from "@/composables/useBrowser";
@@ -71,16 +74,18 @@ import { isValidURL } from "@/helpers";
 export default defineComponent({
   name: "HomePage",
   components: {
-    AppHeader,
-    IonButton,
+    // AppHeader,
+
     IonPage,
     IonContent,
+    //  IonButton,
 
-    IonTextarea,
-    IonCol,
-    IonGrid,
-    IonRow,
-    IonLabel,
+    //   IonTextarea,
+    //   IonCol,
+    //   IonGrid,
+    //   IonRow,
+    //   IonLabel,
+    QrCodeScaner,
   },
   setup() {
     const { scan, scanRes } = useBarCodeScaner();
@@ -88,7 +93,7 @@ export default defineComponent({
     const { open: openInBrowser } = useBrowser();
 
     const qrLink = computed(() => {
-      return scanRes.value ? scanRes.value.text : "";
+      return "";
     });
 
     const isQrUrl = computed(() => {

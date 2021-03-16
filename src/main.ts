@@ -2,7 +2,7 @@ import { createApp } from "vue";
 import App from "./App.vue";
 import router from "./router";
 // Added by the CLI
-// import "./registerServiceWorker";
+import "./registerServiceWorker";
 
 import { IonicVue } from "@ionic/vue";
 
@@ -24,6 +24,7 @@ import "@ionic/vue/css/display.css";
 
 /* Theme variables */
 import "./theme/variables.css";
+import "@capacitor/core";
 
 const app = createApp(App)
   .use(IonicVue)
