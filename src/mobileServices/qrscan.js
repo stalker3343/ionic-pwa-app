@@ -76,52 +76,51 @@ QRReader.init = () => {
     navigator.mediaDevices
       .enumerateDevices()
       .then(function(devices) {
-        const device = devices.filter(function(device) {
-          const deviceLabel = device.label.split(",")[1];
-          if (device.kind == "videoinput") {
-            return device;
-          }
-        });
+        // const device = devices.filter(function(device) {
+        //   if (device.kind == "videoinput") {
+        //     return device;
+        //   }
+        // });
 
-        let constraints;
-        if (device.length > 1) {
-          constraints = {
-            video: {
-              mandatory: {
-                sourceId: device[device.length - 1].deviceId
-                  ? device[device.length - 1].deviceId
-                  : null,
-              },
-            },
-            audio: false,
-          };
+        // if (device.length > 1) {
+        const constraints = {
+          video: {
+            // mandatory: {
+            //   sourceId: device[device.length - 1].deviceId
+            //     ? device[device.length - 1].deviceId
+            //     : null,
+            // },
+            facingMode: "environment",
+          },
+          audio: false,
+        };
 
-          if (window.iOS) {
-            constraints.video.facingMode = "environment";
-          }
-          startCapture(constraints);
-        } else if (device.length) {
-          constraints = {
-            video: {
-              mandatory: {
-                sourceId: device[0].deviceId ? device[0].deviceId : null,
-              },
-            },
-            audio: false,
-          };
+        // if (window.iOS) {
+        //   constraints.video.facingMode = "environment";
+        // }
+        startCapture(constraints);
+        // } else if (device.length) {
+        // constraints = {
+        //   video: {
+        //     mandatory: {
+        //       sourceId: device[0].deviceId ? device[0].deviceId : null,
+        //     },
+        //   },
+        //   audio: false,
+        // };
 
-          if (window.iOS) {
-            constraints.video.facingMode = "environment";
-          }
+        // if (window.iOS) {
+        //   constraints.video.facingMode = "environment";
+        // }
 
-          if (!constraints.video.mandatory.sourceId && !window.iOS) {
-            startCapture({ video: true });
-          } else {
-            startCapture(constraints);
-          }
-        } else {
-          startCapture({ video: true });
-        }
+        // if (!constraints.video.mandatory.sourceId && !window.iOS) {
+        //   startCapture({ video: true });
+        // } else {
+        //   startCapture(constraints);
+        // }
+        // } else {
+        //   startCapture({ video: true });
+        // }
       })
       .catch(function(error) {
         showErrorMsg();
