@@ -31,18 +31,46 @@
   <div class="app__select-photos">
     <ion-icon size="large" :icon="cameraOutline"></ion-icon>
   </div>
+
+  <button
+    ref="hackOpenWindowBtn"
+    v-show="false"
+    :onclick="openHackWindowHandler"
+  ></button>
 </template>
 
 <script lang="js">
-import { defineComponent, onMounted } from "vue";
+import {
+  defineComponent,
+  onMounted,
+  watchEffect,
+  ref,
+  Ref,
+  computed,
+} from "vue";
+import { IonIcon } from "@ionic/vue";
 import QRReader from "@/mobileServices/qrscan.js";
 import { isURL, hasProtocolInUrl } from "@/helpers";
 import { cameraOutline } from "ionicons/icons";
 
 export default defineComponent({
-  name: "HomePage",
-  components: {},
+  name: "QrCodeScaner",
+  components: { IonIcon },
   setup() {
+    const copiedText = ref("");
+    const normalizedCopiedText = computed(() => {
+      if (!hasProtocolInUrl(copiedText.value)) {
+        return `//${copiedText.value}`;
+      }
+      return copiedText.value;
+    });
+    const hackOpenWindowBtn = ref();
+
+    const openHackWindowHandler = () => {
+      // window.open(normalizedCopiedText.value, "_blank");
+      window.location.assign(normalizedCopiedText.value)
+    };
+
     onMounted(() => {
       window.iOS = ["iPad", "iPhone", "iPod"].indexOf(navigator.platform) >= 0;
       window.isMediaStreamAPISupported =
@@ -51,7 +79,6 @@ export default defineComponent({
         "enumerateDevices" in navigator.mediaDevices;
       window.noCameraPermission = false;
 
-      let copiedText = null;
       let frame = null;
       const selectPhotoBtn = document.querySelector(".app__select-photos");
       const dialogElement = document.querySelector(".app__dialog");
@@ -80,7 +107,7 @@ export default defineComponent({
 
       //Hide dialog
       function hideDialog() {
-        copiedText = null;
+        copiedText.value = "";
         textBoxEle.value = "";
 
         if (!window.isMediaStreamAPISupported) {
@@ -93,21 +120,14 @@ export default defineComponent({
       }
 
       //To open result in browser
-      function openInBrowser() {
-        console.log("Result: ", copiedText);
-
-        if (!hasProtocolInUrl(copiedText)) {
-          copiedText = `//${copiedText}`;
-        }
-
-        window.open(copiedText, "_blank", "toolbar=0,location=0,menubar=0");
-        copiedText = null;
-        hideDialog();
-      }
 
       //Dialog close btn event
       dialogCloseBtnElement.addEventListener("click", hideDialog, false);
-      dialogOpenBtnElement.addEventListener("click", openInBrowser, false);
+      dialogOpenBtnElement.addEventListener(
+        "click",
+        hackOpenWindowBtn.value.click,
+        false
+      );
 
       //Scan
       function scan(forSelectedPhotos = false) {
@@ -120,17 +140,18 @@ export default defineComponent({
         }
 
         const scanSuccessCallback = (result) => {
-          copiedText = result;
+          console.log("in scanSuccessCallback");
+
+          copiedText.value = result;
           textBoxEle.value = result;
           textBoxEle.select();
           scanningEle.style.display = "none";
           if (isURL(result)) {
-            openInBrowser()
+            hackOpenWindowBtn.value.click();
           }
           // dialogElement.classList.remove("app__dialog--hide");
           // dialogOverlayElement.classList.remove("app__dialog--hide");
-
-        }
+        };
 
         QRReader.scan(scanSuccessCallback, forSelectedPhotos);
       }
@@ -186,6 +207,9 @@ export default defineComponent({
 
     return {
       cameraOutline,
+      hackOpenWindowBtn,
+      normalizedCopiedText,
+      openHackWindowHandler,
     };
   },
 });
