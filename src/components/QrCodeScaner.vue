@@ -68,7 +68,7 @@ export default defineComponent({
 
     const openHackWindowHandler = () => {
       // window.open(normalizedCopiedText.value, "_blank");
-      window.location.assign(normalizedCopiedText.value)
+      window.location.assign(normalizedCopiedText.value);
     };
 
     onMounted(() => {
@@ -123,11 +123,11 @@ export default defineComponent({
 
       //Dialog close btn event
       dialogCloseBtnElement.addEventListener("click", hideDialog, false);
-      dialogOpenBtnElement.addEventListener(
-        "click",
-        hackOpenWindowBtn.value.click,
-        false
-      );
+      // dialogOpenBtnElement.addEventListener(
+      //   "click",
+      //   hackOpenWindowBtn.value.click,
+      //   false
+      // );
 
       //Scan
       function scan(forSelectedPhotos = false) {
@@ -147,6 +147,9 @@ export default defineComponent({
           textBoxEle.select();
           scanningEle.style.display = "none";
           if (isURL(result)) {
+            console.log("isURL");
+            console.log(normalizedCopiedText.value, "normalizedCopiedText");
+
             hackOpenWindowBtn.value.click();
           }
           // dialogElement.classList.remove("app__dialog--hide");
